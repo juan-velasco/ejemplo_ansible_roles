@@ -1,0 +1,64 @@
+# Configura el fichero de swap al tamaño indicado
+- name: Configure Swap
+  hosts: all
+  become: yes
+  tags:
+    - initial
+    - so-config
+    - configure-swap
+  roles:
+    - configure-swap
+
+# Paquetes y dependencias del sistema operativo, incluyendo nginx y php
+- name: Install APT Packages
+  hosts: all
+  become: yes
+  tags:
+    - initial
+    - so-config
+    - install-apt-packages
+  roles:
+    - install-apt-packages
+
+- name: Install NodeJS (requires add apt repo)
+  hosts: all
+  become: yes
+  tags:
+    - initial
+    - so-config
+    - install-nodejs
+  roles:
+    - install-nodejs
+
+# Configura el CloudWatch Agent para tener métricas de memoria y disco
+# Require tener el role correspondiente asignado en la máquina EC2
+- name: Configure CloudWatch Agent
+  hosts: all
+  become: yes
+  tags:
+    - initial
+    - so-config
+    - configure-cloudwatch-agent
+  roles:
+    - configure-cloudwatch-agent
+
+- name: Install Composer
+  hosts: all
+  become: yes
+  tags:
+    - initial
+    - so-config
+    - install-composer
+  roles:
+    - install-composer
+
+# Configura ciertos parámetros del fichero php.ini
+- name: Configure PHP
+  hosts: all
+  become: yes
+  tags:
+    - initial
+    - so-config
+    - configure-php
+  roles:
+    - configure-php

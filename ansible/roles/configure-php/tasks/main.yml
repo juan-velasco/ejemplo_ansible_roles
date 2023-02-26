@@ -1,0 +1,19 @@
+- name: Set post_max_size
+  ansible.builtin.lineinfile:
+    path: /etc/php/{{ php.version }}/fpm/php.ini
+    regexp: "post_max_size ="
+    line: post_max_size = 25M
+- name: Set upload_max_filesize
+  ansible.builtin.lineinfile:
+    path: /etc/php/{{ php.version }}/fpm/php.ini
+    regexp: "upload_max_filesize ="
+    line: upload_max_filesize = 25M
+- name: Set memory_limit
+  ansible.builtin.lineinfile:
+    path: /etc/php/{{ php.version }}/fpm/php.ini
+    regexp: "memory_limit ="
+    line: memory_limit = 256M
+- name: Restart PHP-FPM
+  ansible.builtin.service:
+    name: php{{ php.version }}-fpm
+    state: restarted

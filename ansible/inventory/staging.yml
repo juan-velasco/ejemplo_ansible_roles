@@ -1,0 +1,6 @@
+servers:
+  hosts:
+    staging:
+      ansible_host: my.server.ip
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: "{{ playbook_dir }}/../certs/my_key_pair.pem" # necesario tener este certificado

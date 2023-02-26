@@ -1,0 +1,17 @@
+- name: Check whether swap is already enabled or not
+  shell: swapon -s
+  register: swap_enabled
+- block:
+    - name: create swap file
+      command: fallocate -l {{ swap.size_in_gb }}G /swapfile
+    - name: change permission type
+      file: path=/swapfile mode=600 state=file
+    - name: setup swap
+      command: mkswap /swapfile
+    - name: create swap
+      command: swapon /swapfile
+    - name: Add to fstab
+      action: lineinfile dest=/etc/fstab regexp="swapfile" line="/swapfile none swap sw 0 0" state=present
+    - name: start swap
+      command: swapon -a
+  when: swap_enabled.stdout.find('swapfile') == -1

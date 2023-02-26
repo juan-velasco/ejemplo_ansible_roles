@@ -1,0 +1,9 @@
+---
+- name: Install other packages
+  import_tasks: install-other-packages.yml
+
+- name: Install Nginx
+  import_tasks: install-nginx.yml
+
+- name: Install PHP
+  import_tasks: install-php.yml

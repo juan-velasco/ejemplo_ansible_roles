@@ -1,0 +1,14 @@
+- name: Install required packages (curl, git, supervisor,...)
+  apt:
+    name: [ 'curl',
+            'git',
+            'acl',
+            'software-properties-common',
+            'mysql-client',
+            'ca-certificates',
+            'lsb-release',
+            'apt-transport-https',
+            'supervisor',
+    ]
+    state: present
+    update_cache: yes

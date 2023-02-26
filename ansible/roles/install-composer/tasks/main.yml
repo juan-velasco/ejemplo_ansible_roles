@@ -1,0 +1,6 @@
+- name: Download installer
+  shell: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+- name: Install
+  shell: php composer-setup.php --version={{ composer.version }} --install-dir /usr/local/bin --filename composer
+- name: Delete installer file
+  shell: php -r "unlink('composer-setup.php');"

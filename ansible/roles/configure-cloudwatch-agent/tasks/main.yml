@@ -1,0 +1,16 @@
+- name: Download .deb package
+  get_url:
+    url: https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/{{ architecture }}/latest/amazon-cloudwatch-agent.deb
+    dest: /tmp/amazon-cloudwatch-agent.deb
+- name: Install .deb package
+  apt:
+    deb: /tmp/amazon-cloudwatch-agent.deb
+- name: Copy CloudWatch Agent config file
+  copy:
+    src: amazon-cloudwatch-agent.json # como está en el directorio "files" no es necesario especificar la ruta
+    dest: /opt/aws/amazon-cloudwatch-agent/etc/
+- name: Restart service amazon-cloudwatch-agent to apply changes
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    name: amazon-cloudwatch-agent
